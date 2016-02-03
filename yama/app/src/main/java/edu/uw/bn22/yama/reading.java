@@ -12,6 +12,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -36,7 +39,6 @@ public class reading extends AppCompatActivity implements LoaderManager.LoaderCa
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(reading.this, compose.class);
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 startActivity(intent);
             }
         });
@@ -102,5 +104,26 @@ public class reading extends AppCompatActivity implements LoaderManager.LoaderCa
     public void onLoaderReset(Loader<Cursor> loader) {
         //Swaps to null
         adapter.swapCursor(null);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Initializes the Setting menu
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //Listeners for when the setting menu is clicked
+        switch(item.getItemId()){
+            case R.id.menu_item1 :
+                Intent intent = new Intent(reading.this, setting.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
